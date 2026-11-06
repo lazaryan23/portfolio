@@ -49,7 +49,7 @@ export function Hero() {
         )}
       </div>
       <div className="hero__fade" aria-hidden />
-      {/* Invisible circle over the 3D core: drag here to spin it (touch-action: none). */}
+      {/* Invisible circle over the 3D core: swipe sideways to spin it; vertical swipes still scroll. */}
       {webgl && (
         <div ref={dragZoneRef} className="hero__drag-zone" data-cursor data-cursor-label="Drag" aria-hidden />
       )}

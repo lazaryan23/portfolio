@@ -33,8 +33,8 @@
 
 /*
  * Positioned by HeroScene via --core-x / --core-y / --core-d so it always covers the 3D core.
- * `touch-action: none` makes a drag here spin the shape instead of scrolling the page;
- * everywhere else in the hero, swipes scroll normally.
+ * `touch-action: pan-y`: vertical swipes always scroll the page (even when they start on
+ * the shape), while horizontal swipes are left to JS and spin the core.
  */
 .hero__drag-zone {
   position: absolute;
@@ -45,7 +45,7 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   z-index: 0;
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;

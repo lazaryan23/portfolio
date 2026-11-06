@@ -29,8 +29,8 @@ const MAX_SPIN = 7;
  * - Mouse / pen: `pointermove` anywhere on the page steers the scene.
  * - Touch: `touchstart` / `touchmove` / `touchend` on window, registered as *passive*
  *   so normal swipes still scroll the page while the scene follows the finger.
- * - Drag zone: an element sitting over the 3D core (with `touch-action: none`)
- *   where dragging spins the core instead of scrolling.
+ * - Drag zone: an element over the 3D core (with `touch-action: pan-y`) where
+ *   horizontal drags spin the core; vertical swipes there still scroll the page.
  *
  * Coordinates from `clientX/clientY` or `touches[0]` are normalised against the
  * canvas' bounding rect, so they stay correct regardless of scroll or layout.
@@ -120,16 +120,9 @@ export function useHeroInput(dragZone: RefObject<HTMLElement>): MutableRefObject
       state.target.set(0, 0);
     };
 
-    /*
-     * Inside the drag zone, block the browser's own gesture handling.
-     * `touch-action: none` in CSS already does this in modern browsers;
-     * preventDefault (needs passive: false) covers older iOS Safari.
-     */
-    const zone = dragZone.current;
-    const blockScroll = (e: TouchEvent) => {
-      if (e.cancelable) e.preventDefault();
-    };
-
+    // Every listener is passive and nothing calls preventDefault: page scrolling is never blocked.
+    // The drag zone's `touch-action: pan-y` lets the browser scroll vertically while
+    // horizontal finger movement reaches these handlers and spins the core.
     const passive = { passive: true } as const;
     window.addEventListener('pointermove', onPointerMove, passive);
     window.addEventListener('pointerdown', onPointerDown, passive);
@@ -139,7 +132,6 @@ export function useHeroInput(dragZone: RefObject<HTMLElement>): MutableRefObject
     window.addEventListener('touchmove', onTouchMove, passive);
     window.addEventListener('touchend', onTouchEnd, passive);
     window.addEventListener('touchcancel', onTouchEnd, passive);
-    zone?.addEventListener('touchmove', blockScroll, { passive: false });
 
     return () => {
       window.removeEventListener('pointermove', onPointerMove);
@@ -150,7 +142,6 @@ export function useHeroInput(dragZone: RefObject<HTMLElement>): MutableRefObject
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', onTouchEnd);
       window.removeEventListener('touchcancel', onTouchEnd);
-      zone?.removeEventListener('touchmove', blockScroll);
     };
   }, [gl, dragZone]);
 
