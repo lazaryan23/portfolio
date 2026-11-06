@@ -26,7 +26,7 @@ export function Portrait() {
               src={src}
               alt={`Portrait of ${profile.name}`}
               width={800}
-              height={1000}
+              height={800}
               loading="lazy"
               decoding="async"
               onError={() => setFailed(true)}
