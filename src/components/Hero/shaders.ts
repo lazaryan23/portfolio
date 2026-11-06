@@ -56,6 +56,7 @@ float snoise(vec3 v){
 export const blobVertex = /* glsl */ `
 uniform float uTime;
 uniform vec2 uMouse;
+uniform float uPulse;
 varying float vDisp;
 varying vec3 vNormal;
 varying vec3 vViewDir;
@@ -64,7 +65,7 @@ ${simplexNoise}
 
 void main() {
   vec3 p = position;
-  float energy = 1.0 + length(uMouse) * 0.6;
+  float energy = 1.0 + length(uMouse) * 0.6 + uPulse * 0.9;
   float n1 = snoise(p * 0.85 + vec3(uTime * 0.32, uTime * 0.18, uMouse.x * 0.8));
   float n2 = snoise(p * 2.1 - vec3(uTime * 0.22) + vec3(0.0, uMouse.y * 0.8, 0.0));
   float disp = (n1 * 0.3 + n2 * 0.07) * energy;

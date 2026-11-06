@@ -31,9 +31,42 @@
     radial-gradient(ellipse 60% 70% at 15% 55%, rgba(6, 6, 10, 0.75), transparent 70%);
 }
 
+/*
+ * Positioned by HeroScene via --core-x / --core-y / --core-d so it always covers the 3D core.
+ * `touch-action: none` makes a drag here spin the shape instead of scrolling the page;
+ * everywhere else in the hero, swipes scroll normally.
+ */
+.hero__drag-zone {
+  position: absolute;
+  left: var(--core-x, 70%);
+  top: var(--core-y, 50%);
+  width: var(--core-d, 0px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 0;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * The copy sits above the drag zone, so let touches on plain text fall through to it.
+ * Links and buttons stay fully interactive.
+ */
 .hero__content {
+  position: relative;
+  z-index: 1;
   padding-top: 120px;
   padding-bottom: 120px;
+  pointer-events: none;
+}
+
+.hero__content a,
+.hero__content button {
+  pointer-events: auto;
 }
 
 .hero__badge {

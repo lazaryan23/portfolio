@@ -26,6 +26,7 @@ function useWebGLSupport() {
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const dragZoneRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
   const webgl = useWebGLSupport();
 
@@ -43,11 +44,15 @@ export function Hero() {
       <div className="hero__canvas" aria-hidden>
         {webgl && (
           <Suspense fallback={null}>
-            <HeroScene active={inView} />
+            <HeroScene active={inView} dragZone={dragZoneRef} />
           </Suspense>
         )}
       </div>
       <div className="hero__fade" aria-hidden />
+      {/* Invisible circle over the 3D core: drag here to spin it (touch-action: none). */}
+      {webgl && (
+        <div ref={dragZoneRef} className="hero__drag-zone" data-cursor data-cursor-label="Drag" aria-hidden />
+      )}
 
       <div className="container hero__content">
         <motion.p
