@@ -368,6 +368,10 @@
 }
 
 @media (max-width: 640px) {
+  .portrait-wrap__glow {
+    inset: 8% 4% -4% 4%;
+  }
+
   .code-card__body {
     white-space: pre-wrap;
     overflow-wrap: anywhere;

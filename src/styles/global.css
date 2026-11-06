@@ -38,9 +38,11 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-/* `clip` (unlike `hidden`) stops sideways scrolling on iOS without breaking position: sticky. */
+/* `hidden` first as a fallback: Safari before iOS 16 ignores `clip`. */
 html,
-body {
+body,
+.section {
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
