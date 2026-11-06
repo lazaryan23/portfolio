@@ -20,6 +20,8 @@ export default function HeroScene({ active }: { active: boolean }) {
     <Canvas
       // Pause rendering entirely when the hero is scrolled out of view.
       frameloop={active ? 'always' : 'never'}
+      // The scene is purely decorative: never let it capture touches/scroll gestures.
+      style={{ pointerEvents: 'none', touchAction: 'pan-y' }}
       dpr={[1, 1.75]}
       camera={{ position: [0, 0, 8], fov: 45 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}

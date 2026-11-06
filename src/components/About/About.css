@@ -367,6 +367,14 @@
   }
 }
 
+@media (max-width: 640px) {
+  .code-card__body {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    padding: 18px;
+  }
+}
+
 @media (min-width: 641px) and (max-width: 900px) {
   .about__stats {
     grid-template-rows: none;
