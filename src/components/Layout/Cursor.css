@@ -1,0 +1,84 @@
+/* Hide the native cursor only once the custom one is active. */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  will-change: transform;
+}
+
+.cursor-dot.is-visible,
+.cursor-ring.is-visible {
+  opacity: 1;
+}
+
+.cursor-dot::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.3s var(--ease);
+}
+
+.cursor-dot.is-hover::before {
+  transform: scale(0);
+}
+
+.cursor-ring__circle {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  transition:
+    transform 0.45s var(--ease),
+    background 0.35s,
+    border-color 0.35s;
+}
+
+.cursor-ring.is-hover .cursor-ring__circle {
+  transform: scale(1.6);
+  border-color: rgba(34, 211, 238, 0.9);
+  background: rgba(34, 211, 238, 0.08);
+}
+
+.cursor-ring.has-label .cursor-ring__circle {
+  transform: scale(2.2);
+  border-color: transparent;
+  background: var(--grad);
+}
+
+.cursor-ring.is-down .cursor-ring__circle {
+  transform: scale(0.8);
+}
+
+.cursor-ring__label {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0.6);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #06060a;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.4s var(--ease);
+}
+
+.cursor-ring.has-label .cursor-ring__label {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}

@@ -1,0 +1,32 @@
+{
+  "name": "levon-lazaryan-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Personal developer portfolio of Levon Lazaryan — Frontend & Web Developer.",
+  "homepage": "https://lazaryan23.github.io/portfolio",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "predeploy": "BASE_PATH=/portfolio/ npm run build",
+    "deploy": "gh-pages -d dist --nojekyll"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^8.17.10",
+    "framer-motion": "^11.11.17",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "gh-pages": "^6.3.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
